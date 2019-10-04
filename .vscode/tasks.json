@@ -2,7 +2,13 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build",
+      "label": "yarn build",
+      "command": "yarn",
+      "type": "shell",
+      "args": ["build"]
+    },
+    {
+      "label": "dotnet build",
       "command": "dotnet",
       "type": "process",
       "args": [
@@ -12,6 +18,17 @@
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "yarn build",
+        "dotnet build"
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ]
     },
     {
       "label": "publish",
