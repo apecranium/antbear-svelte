@@ -5,8 +5,8 @@ using Svelte.Models;
 
 namespace Svelte.Controllers
 {
-  [Route("api/[controller]")]
   [ApiController]
+  [Route("api/[controller]")]
   public class HomeController : ControllerBase
   {
     private readonly ILogger<HomeController> _logger;

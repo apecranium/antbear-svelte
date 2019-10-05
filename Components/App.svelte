@@ -1,6 +1,5 @@
 <script>
-  import Greeting from './Greeting.svelte';
-  export let name;
+  import Pets from './Pets.svelte';
 </script>
 
 <style>
@@ -9,4 +8,5 @@
   }
 </style>
 
-<Greeting />
+<h1>Antbear "Svelte"</h1>
+<Pets />
