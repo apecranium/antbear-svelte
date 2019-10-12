@@ -25,9 +25,6 @@
       "dependsOn": [
         "yarn build",
         "dotnet build"
-      ],
-      "problemMatcher": [
-        "$msCompile"
       ]
     },
     {

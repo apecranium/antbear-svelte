@@ -10,5 +10,7 @@ namespace Svelte.Data
     }
 
     public DbSet<Pet> Pets { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Department> Departments { get; set; }
   }
 }

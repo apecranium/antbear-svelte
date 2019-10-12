@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Svelte.Data;
 using Svelte.Models;
+using Svelte.ViewModels;
 
 namespace Svelte.Controllers
 {
@@ -40,8 +41,19 @@ namespace Svelte.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult<Pet>> CreatePet(Pet pet)
+    public async Task<ActionResult<Pet>> CreatePet([Bind("Name, BirthDate")] PetViewModel petViewModel)
     {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest();
+      }
+
+      var pet = new Pet()
+      {
+        Name = petViewModel.Name,
+        BirthDate = petViewModel.BirthDate
+      };
+
       await _context.Pets.AddAsync(pet);
       await _context.SaveChangesAsync();
       return CreatedAtAction(nameof(GetPet), new { id = pet.Id }, pet);
@@ -59,7 +71,6 @@ namespace Svelte.Controllers
 
       _context.Pets.Remove(pet);
       await _context.SaveChangesAsync();
-
       return NoContent();
     }
   }
