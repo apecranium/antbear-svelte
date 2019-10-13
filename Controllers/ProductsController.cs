@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -34,11 +33,7 @@ namespace Svelte.Controllers
           Id = product.Id,
           Name = product.Name,
           Price = product.Price,
-          Department = new ProductDepartment
-          {
-            Id = product.Department.Id,
-            Name = product.Department.Name
-          }
+          Department = product.Department.Name
         });
       }
 
@@ -60,11 +55,7 @@ namespace Svelte.Controllers
         Id = product.Id,
         Name = product.Name,
         Price = product.Price,
-        Department = new ProductDepartment
-        {
-          Id = product.Department.Id,
-          Name = product.Department.Name
-        }
+        Department = product.Department.Name
       };
 
       return productViewModel;
@@ -78,14 +69,22 @@ namespace Svelte.Controllers
         return BadRequest();
       }
 
+      var department = await _context.Departments.FirstOrDefaultAsync(d => d.Name.ToLower() == productViewModel.Department);
+
+      if (department == null)
+      {
+        department = new Department
+        {
+          Name = productViewModel.Department
+        };
+        await _context.Departments.AddAsync(department);
+      }
+
       var product = new Product
       {
         Name = productViewModel.Name,
         Price = productViewModel.Price,
-        Department = new Department
-        {
-          Name = productViewModel.Department.Name
-        }
+        Department = department
       };
 
       await _context.Products.AddAsync(product);
