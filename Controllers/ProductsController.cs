@@ -28,13 +28,7 @@ namespace Svelte.Controllers
 
       foreach (var product in products)
       {
-        prods.Add(new ProductViewModel
-        {
-          Id = product.Id,
-          Name = product.Name,
-          Price = product.Price,
-          Department = product.Department.Name
-        });
+        prods.Add(new ProductViewModel(product));
       }
 
       return prods;
@@ -50,13 +44,7 @@ namespace Svelte.Controllers
         return NotFound();
       }
 
-      var productViewModel = new ProductViewModel
-      {
-        Id = product.Id,
-        Name = product.Name,
-        Price = product.Price,
-        Department = product.Department.Name
-      };
+      var productViewModel = new ProductViewModel(product);
 
       return productViewModel;
     }

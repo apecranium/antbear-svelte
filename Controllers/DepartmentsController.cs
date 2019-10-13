@@ -28,22 +28,12 @@ namespace Svelte.Controllers
 
       foreach (var department in departments)
       {
-        var deptProducts = new List<DepartmentProduct>();
-        foreach (var deptProduct in department.Products)
+        var products = new List<DepartmentProduct>();
+        foreach (var product in department.Products)
         {
-          deptProducts.Add(new DepartmentProduct
-          {
-            Id = deptProduct.Id,
-            Name = deptProduct.Name,
-            Price = deptProduct.Price
-          });
+          products.Add(new DepartmentProduct(product));
         }
-        depts.Add(new DepartmentViewModel
-        {
-          Id = department.Id,
-          Name = department.Name,
-          Products = deptProducts
-        });
+        depts.Add(new DepartmentViewModel(department, products));
       }
 
       return depts;
@@ -63,22 +53,10 @@ namespace Svelte.Controllers
 
       foreach (var product in department.Products)
       {
-        products.Add(new DepartmentProduct
-        {
-          Id = product.Id,
-          Name = product.Name,
-          Price = product.Price
-        });
+        products.Add(new DepartmentProduct(product));
       }
 
-      var departmentViewModel = new DepartmentViewModel
-      {
-        Id = department.Id,
-        Name = department.Name,
-        Products = products
-      };
-
-      return departmentViewModel;
+      return new DepartmentViewModel(department, products);
     }
 
     [HttpPost]
