@@ -5,7 +5,9 @@
       "label": "yarn build",
       "command": "yarn",
       "type": "shell",
-      "args": ["build"]
+      "args": [
+        "build"
+      ]
     },
     {
       "label": "dotnet build",
@@ -25,7 +27,14 @@
       "dependsOn": [
         "yarn build",
         "dotnet build"
-      ]
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     },
     {
       "label": "publish",

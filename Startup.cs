@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +22,11 @@ namespace Svelte
     {
       services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(Configuration.GetConnectionString("PostgreSQL")));
+      services.AddStackExchangeRedisCache(setupAction =>
+      {
+        setupAction.Configuration = Configuration.GetConnectionString("Redis");
+        setupAction.InstanceName = Configuration.GetConnectionString("RedisInstance");
+      });
       services.AddControllers();
     }
 
